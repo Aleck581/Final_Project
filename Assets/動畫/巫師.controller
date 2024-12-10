@@ -203,37 +203,37 @@ AnimatorController:
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 9100000}
   - m_Name: "\u89F8\u767C\u9632\u79A601"
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 9100000}
   - m_Name: "\u8DF3\u8E8D"
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 9100000}
   - m_Name: "\u52DD\u5229"
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 9100000}
   - m_Name: "\u6688\u7729"
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 9100000}
   - m_Name: "\u906D\u5230\u6253\u64CA"
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
