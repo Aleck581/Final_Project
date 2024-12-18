@@ -16,7 +16,7 @@ namespace Magician
     public class HuggingFaceManager : MonoBehaviour
     {
         private string url = "https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2";
-        private string key = "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";
+        private string key = "先移除保護";
 
         private TMP_InputField inputField;
         private string prompt;
