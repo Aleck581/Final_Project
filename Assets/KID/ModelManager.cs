@@ -5,39 +5,35 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 namespace KID
 {
-    /// <summary>
-    /// 模型管理器：互動 AI 人物
-    /// </summary>
     public class ModelManager : MonoBehaviour
     {
-        /// <summary>
-        /// 模型連結
-        /// </summary>
         private string url = "https://g.ubitus.ai/v1/chat/completions";
-        /// <summary>
-        /// 模型金鑰
-        /// </summary>
         private string key = "d4pHv5n2G3q2vkVMPen3vFMfUJic4huKiQbvMmGLWUVIr/ptUuGnsCx/zVdYmVtdrGPO9//2h8Fbp6HkSQ0/oA==";
-        /// <summary>
-        /// 角色設定
-        /// </summary>
-        private string role = "你是一位音樂推薦者";
+        private string role = "你是一位音樂推薦者，請盡量將話題保持在音樂為主";
 
-        #region 模型處理區域
         [SerializeField, Header("輸入欄位")]
         private TMP_InputField inputField;
 
         [SerializeField, Header("輸出欄位")]
         private TMP_Text outputText;
 
+        [SerializeField, Header("確認視窗物件")]
+        private GameObject confirmWindow;
+
+        [SerializeField, Header("確認訊息文字")]
+        private TMP_Text confirmMessageText;
+
         private string prompt;
+        private string pendingYouTubeUrl;
 
         private void Awake()
         {
             inputField.onEndEdit.AddListener(PlayerInput);
+            confirmWindow.SetActive(false);
         }
 
         private void PlayerInput(string input)
@@ -92,16 +88,50 @@ namespace KID
                 }
             }
         }
-        #endregion
 
-        /// <summary>
-        /// 處理互動回應
-        /// </summary>
-        /// <param name="response">模型回傳的文字結果</param>
         private void Interaction(string response)
         {
             outputText.text = response;
             print($"<color=#f96>結果：{response}</color>");
+            string songName = ExtractSongName(response);
+            if (!string.IsNullOrEmpty(songName))
+            {
+                pendingYouTubeUrl = "https://www.youtube.com/results?search_query=" + WWW.EscapeURL(songName);
+                ShowConfirmationWindow(songName);
+            }
+            else
+            {
+                Debug.LogWarning("未找到有效的歌曲名稱。");
+            }
+        }
+
+        private string ExtractSongName(string response)
+        {
+            int startIndex = response.IndexOf('《') + 1;
+            int endIndex = response.IndexOf('》');
+            if (startIndex > 0 && endIndex > startIndex)
+            {
+                return response.Substring(startIndex, endIndex - startIndex);
+            }
+            return string.Empty;
+        }
+
+        private void ShowConfirmationWindow(string songName)
+        {
+            confirmMessageText.text = $"是否跳轉到 YouTube 搜尋：{songName}?";
+            confirmWindow.SetActive(true);
+        }
+
+        public void OnConfirmYes()
+        {
+            Application.OpenURL(pendingYouTubeUrl);
+            confirmWindow.SetActive(false);
+        }
+
+        public void OnConfirmNo()
+        {
+            pendingYouTubeUrl = null;
+            confirmWindow.SetActive(false);
         }
     }
 }

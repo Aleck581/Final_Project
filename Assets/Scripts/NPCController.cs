@@ -7,7 +7,7 @@ namespace Magician
     /// </summary>
     public class NPCController : MonoBehaviour
     {
-        //序列畫欄位：將私人變數顯示再Unity屬性面板
+        //序列畫欄位：將私人變數顯示在Unity屬性面板
         [SerializeField, Header("NPC 資料")]
         private DataNPC dataNPC;
 
